@@ -1,0 +1,5 @@
+nutritionist_store:
+    resource: "@NutritionistStoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
