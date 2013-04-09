@@ -71,16 +71,19 @@ class DefaultController extends Controller
                         $nutrient_name = substr($td->textContent,0,$pos);
                         echo $nutrient_name."--> ";
                         $nutrient = $em->getRepository('NutritionistStoreBundle:Nutrient')->findByNameLike($nutrient_name);
+                        if($nutrient == false){
+                            $nutrient = new Nutrient();
+                            $nutrient->setName($nutrient_name);
+
+                        }
                         var_dump($nutrient);
-                        ++$i;
 
-
-                        //$nutrient = new Nutrient();
-                        //$nutrient->setName($td->textContent);
                     }
                     /*if(is_object($tr_node->childNodes->item(1)) and $tr_node->childNodes->item(1)->tagName == 'td'){
 
                     }*/
+                    ++$i;
+                    if($i == 25){die();}
                     //print_r($tr_node->childNodes->item(1));
                     echo "<br/><br/><br/>";
                 }

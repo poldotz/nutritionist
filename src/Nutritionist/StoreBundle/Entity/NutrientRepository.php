@@ -42,7 +42,11 @@ class NutrientRepository extends EntityRepository
                 $nutrient = $query->getSingleResult();
             }
             catch(\Exception $e){
-                return new Nutrient();
+                //if($e == NonUniqueResultException)
+                var_dump($e);
+
+                return false;
+
             }
             return $nutrient;
 

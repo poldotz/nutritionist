@@ -28,6 +28,13 @@ class Nutrient
     private $name;
 
     /**
+     * @var string
+     * @ORM\Column(name="note", type="string")
+     */
+    private $note;
+
+
+    /**
      * @ORM\OneToMany(targetEntity="FoodNutrient", mappedBy="nutrient")
      */
     protected $foodNutrients;
@@ -106,5 +113,28 @@ class Nutrient
     public function getFoodNutrients()
     {
         return $this->foodNutrients;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return Nutrient
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+    
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 }
