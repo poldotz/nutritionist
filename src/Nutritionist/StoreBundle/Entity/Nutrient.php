@@ -29,7 +29,7 @@ class Nutrient
 
     /**
      * @var string
-     * @ORM\Column(name="note", type="string")
+     * @ORM\Column(name="note", type="string", nullable=true)
      */
     private $note;
 

@@ -19,18 +19,22 @@ class NutrientRepository extends EntityRepository
         $client = new Client();
         $crawler = $client->request('GET',$url);
         $nodes = $crawler->filter('#nutriente');
+        $em = $this->getEntityManager();
         if ($nodes->count())
         {
-            if ($nodes->count())
-            {
-                foreach($nodes->children() as $node){
-                    $nutrient = new Nutrient();
-                    $nutrient->setName($node->nodeValue);
-                    $this->_em->persist($nutrient);
-                }
+
+            foreach($nodes->children() as $node){
+                $nutrient = new Nutrient();
+                $nutrient->setName(trim($node->nodeValue));
+                $em->persist($nutrient);
             }
+            $nutrient = new Nutrient();
+            $nutrient->setName('Zuccheri solubili (g/100g p.e.)');
+            $em->persist($nutrient);
+
         }
-        $this->_em->flush();
+        $em->flush();
+
     }
 
     public function findByNameLike($str = ''){
@@ -42,11 +46,7 @@ class NutrientRepository extends EntityRepository
                 $nutrient = $query->getSingleResult();
             }
             catch(\Exception $e){
-                //if($e == NonUniqueResultException)
-                var_dump($e);
-
-                return false;
-
+                $nutrient = new Nutrient();
             }
             return $nutrient;
 

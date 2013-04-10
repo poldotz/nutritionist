@@ -41,6 +41,12 @@ class FoodNutrient
      */
     protected $foodNutrient;
 
+    /**
+     * @var string
+     * @ORM\Column(name="note", type="string", nullable=true)
+     */
+    protected $note;
+
 
 
     /**
@@ -120,5 +126,28 @@ class FoodNutrient
     public function getNutrient()
     {
         return $this->nutrient;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return FoodNutrient
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+    
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 }

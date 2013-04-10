@@ -5,6 +5,7 @@ namespace Nutritionist\StoreBundle\Controller;
 use Goutte\Client;
 use Nutritionist\StoreBundle\Entity\Category;
 use Nutritionist\StoreBundle\Entity\Food;
+use Nutritionist\StoreBundle\Entity\FoodNutrient;
 use Nutritionist\StoreBundle\Entity\Nutrient;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -22,6 +23,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+
         /*
          * Load Category Fixtures;
          */
@@ -67,34 +69,75 @@ class DefaultController extends Controller
                 foreach($tab1->eq(1)->filterXPath('//tr') as $tr_node){
                     if(is_object($tr_node->childNodes->item(0)) and $tr_node->childNodes->item(0)->tagName == 'td'){
                         $td = $tr_node->childNodes->item(0);
-                        $pos = strpos($td->textContent,'(');
-                        $nutrient_name = substr($td->textContent,0,$pos);
-                        echo $nutrient_name."--> ";
+                        $nutrient_name = $this->ediblePartMisureUnit($td->textContent);
+
                         $nutrient = $em->getRepository('NutritionistStoreBundle:Nutrient')->findByNameLike($nutrient_name);
-                        if($nutrient == false){
-                            $nutrient = new Nutrient();
-                            $nutrient->setName($nutrient_name);
+                        echo $nutrient->getName();
+                    }
+
+                    if(is_object($tr_node->childNodes->item(1)) and $tr_node->childNodes->item(1)->nodeName == 'td'){
+                        $value = "";
+                        $value = trim($tr_node->childNodes->item(1)->textContent);
+                        if(is_numeric($value)){
+                            $value = $value;
+                            $note = "";
+                        }
+                        elseif(is_string($value)){
+                            $note = $value;
+                            $value = 0;
+                        }
+                        else{
+                            $note = $value;
+                            $value = 0;
 
                         }
-                        var_dump($nutrient);
-
+                        echo $value." ";
+                        echo $note."<br/>";
                     }
-                    /*if(is_object($tr_node->childNodes->item(1)) and $tr_node->childNodes->item(1)->tagName == 'td'){
+                    $foodNutrient = new FoodNutrient();
+                    $foodNutrient->setFood($food);
+                    $foodNutrient->setNutrient($nutrient);
+                    $foodNutrient->setFoodNutrient($value);
+                    $foodNutrient->setNote($note);
 
-                    }*/
+
                     ++$i;
-                    if($i == 25){die();}
-                    //print_r($tr_node->childNodes->item(1));
-                    echo "<br/><br/><br/>";
+                    if($i > 29){die();}
+
+
+
                 }
+            }
+            return array('name' => 'Stefania');
+        }
+    }
 
-
+    private function ediblePartMisureUnit($textContent)
+    {
+        $start_pos = 0;
+        $end_pos = 0;
+        $start_pos = strpos($textContent,'(');
+        $end_pos = strpos($textContent,')');
+        $base_name = trim(substr($textContent,0,$start_pos));
+        if($start_pos >0 && $end_pos > 0){
+            $misure_unit = trim(substr($textContent,$start_pos+1,($end_pos - $start_pos)-1));
+            switch($misure_unit){
+                case "g":
+                    $misure_unit = "(g/100g p.e.)";
+                    break;
+                case "mg":
+                    $misure_unit = "(mg/100g p.e.)";
+                    break;
+                case "kcal":
+                    $misure_unit = "(kcal/100g p.e.)";
+                    break;
+                case "kJ":
+                    $misure_unit = "(kJ/100g p.e.)";
+                    break;
+                default:
+                    $misure_unit = "";
             }
         }
-
-
-
-
-        return array('name' => 'Stefania');
+        return $base_name." ".$misure_unit;
     }
 }
