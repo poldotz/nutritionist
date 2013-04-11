@@ -36,7 +36,7 @@ class FoodNutrient
 
     /**
      * @var decimal
-     * @ORM\Column(name="food_nutrient", type="decimal", scale=2, precision=2)
+     * @ORM\Column(name="food_nutrient", type="decimal", precision=10,scale=2)
      *
      */
     protected $foodNutrient;

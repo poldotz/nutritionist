@@ -22,6 +22,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        set_time_limit (14400);
         $em = $this->getDoctrine()->getManager();
 
         /*
@@ -34,7 +35,7 @@ class DefaultController extends Controller
         //$em->getRepository('NutritionistStoreBundle:Nutrient')->loadNutrients();
 
         $client = new Client();
-        $crawler = $client->request('GET','http://www.inran.it/646/tabelle_di_composizione_degli_alimenti.html?alimento=&nutriente=tutti&categoria=tutte&quant=100&submitted1=TRUE&sendbutton=Cerca');
+        $crawler = $client->request('GET','http://www.inran.it/646/tabelle_di_composizione_degli_alimenti.html?alimento=&nutriente=tutti&categoria=tutte&quant=100&submitted1=TRUE&sendbutton=Cerca', array('curl.options' => array(CURLOPT_CONNECTTIMEOUT=> 60,CURLOPT_CONNECTTIMEOUT_MS=>5000)));
         $nodes = $crawler->filter('.elencoalim');
         if ($nodes->count())
         {
@@ -64,19 +65,20 @@ class DefaultController extends Controller
                 $food->setCategory($cat);
                 $em->persist($food);
 
-                //$em->flush();
-                $i = 0;
+                $em->flush();
                 foreach($tab1->eq(1)->filterXPath('//tr') as $tr_node){
                     if(is_object($tr_node->childNodes->item(0)) and $tr_node->childNodes->item(0)->tagName == 'td'){
                         $td = $tr_node->childNodes->item(0);
                         $nutrient_name = $this->ediblePartMisureUnit($td->textContent);
 
                         $nutrient = $em->getRepository('NutritionistStoreBundle:Nutrient')->findByNameLike($nutrient_name);
-                        echo $nutrient->getName();
+                    }
+                    else{
+                        continue;
                     }
 
                     if(is_object($tr_node->childNodes->item(1)) and $tr_node->childNodes->item(1)->nodeName == 'td'){
-                        $value = "";
+                        $value = 0;
                         $value = trim($tr_node->childNodes->item(1)->textContent);
                         if(is_numeric($value)){
                             $value = $value;
@@ -91,21 +93,14 @@ class DefaultController extends Controller
                             $value = 0;
 
                         }
-                        echo $value." ";
-                        echo $note."<br/>";
                     }
                     $foodNutrient = new FoodNutrient();
                     $foodNutrient->setFood($food);
                     $foodNutrient->setNutrient($nutrient);
-                    $foodNutrient->setFoodNutrient($value);
+                    $foodNutrient->setFoodNutrient(number_format($value,2,'.',','));
                     $foodNutrient->setNote($note);
-
-
-                    ++$i;
-                    if($i > 29){die();}
-
-
-
+                    $em->persist($foodNutrient);
+                    $em->flush();
                 }
             }
             return array('name' => 'Stefania');
