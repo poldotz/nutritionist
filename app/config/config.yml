@@ -34,7 +34,7 @@ assetic:
     filters:
         less:
             node: /usr/local/bin/node
-            node_paths: [/home/poldotz/node_modules]
+            node_paths: [/usr/local/lib/node_modules/]
             apply_to: "\.less$"
         cssrewrite: ~
     assets:
@@ -119,3 +119,22 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+admingenerator_generator:
+    ## Global
+    use_propel:           false
+    use_doctrine_orm:     true
+    use_doctrine_odm:     false
+    twig:
+        use_form_resources: true
+        use_localized_date: false
+        date_format: d-m-Y
+        datetime_format: d-m-Y H:i:s
+        localized_date_format: medium
+        localized_datetime_format: medium
+        number_format:
+            decimal: 2
+            decimal_point: ,
+            thousand_separator: .
+knp_menu:
+    twig:
+        template: AdmingeneratorGeneratorBundle:KnpMenu:knp_menu_trans.html.twig

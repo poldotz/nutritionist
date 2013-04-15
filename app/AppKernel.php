@@ -25,6 +25,9 @@ class AppKernel extends Kernel
             new Nutritionist\StoreBundle\NutritionistStoreBundle(),
             new Nutritionist\AdminBundle\NutritionistAdminBundle(),
             new Nutritionist\UserBundle\NutritionistUserBundle(),
+            new Admingenerator\GeneratorBundle\AdmingeneratorGeneratorBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
