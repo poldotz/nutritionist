@@ -1,3 +1,13 @@
+nutritionist_user:
+    resource: "@NutritionistUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+nutritionist_admin:
+    resource: "@NutritionistAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 nutritionist_store:
     resource: "@NutritionistStoreBundle/Controller/"
     type:     annotation

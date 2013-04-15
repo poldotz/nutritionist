@@ -3,6 +3,7 @@
 namespace Nutritionist\StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Nutrient
@@ -23,6 +24,7 @@ class Nutrient
 
     /**
      * @var string
+     * @Gedmo\Translatable
      * @ORM\Column(name="name", type="string", unique=true)
      */
     private $name;
@@ -32,6 +34,20 @@ class Nutrient
      * @ORM\Column(name="note", type="string", nullable=true)
      */
     private $note;
+
+    /**
+     * @Gedmo\Translatable
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(name="slug", type="string")
+     */
+    private $slug;
+
+    /**
+     ** @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
 
     /**
@@ -136,5 +152,33 @@ class Nutrient
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Nutrient
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

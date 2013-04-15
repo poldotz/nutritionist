@@ -13,5 +13,59 @@ use Doctrine\ORM\EntityRepository;
 class FoodRepository extends EntityRepository
 {
 
+    public function loadFoods($url ="http://www.inran.it/646/tabelle_di_composizione_degli_alimenti.html?alimento=&nutriente=tutti&categoria=tutte&quant=100&submitted1=TRUE&sendbutton=Cerca"){
+        $client = new Client();
+        $crawler = $client->request('GET',$url);
+        $nodes = $crawler->filter('.elencoalim');
+        $em = $this->getEntityManager();
+        if ($nodes->count())
+        {
+            foreach($nodes as $node){
+
+                $href="http://www.inran.it";
+                $href .= $node->firstChild->getAttribute('href');
+                $link = new Link($node->firstChild,$href);
+                $crawler_link = $client->click($link);
+                $tab1 = $crawler_link->filter('.Tabella1');
+
+                // Food
+                $trs = $tab1->first()->children();
+                $tr = $trs->first();
+                $th = $tr->children();
+                $food_name = $th->text(); //food
+
+                // category
+                $td_category = $th->siblings()->children()->siblings();
+                $category = $td_category->text();
+                $cat_repo = $this->getDoctrine()->getRepository('NutritionistStoreBundle:Category');
+                $cat = $cat_repo->findOneByName($category);
+
+                // save food
+                $food = new Food();
+                $food->setName($food_name);
+                $food->setCategory($cat);
+                $em->persist($food);
+            }
+            $em->flush();
+        }
+
+    }
+
+    public function findByNameLike($str = ''){
+        if(strlen($str)){
+
+            $em = $this->getEntityManager();
+            $query = $em->createQuery('SELECT n FROM NutritionistStoreBundle:Food n WHERE n.name like :name')->setParameter('name', '%'.trim($str));
+            try{
+                $food = $query->getSingleResult();
+            }
+            catch(\Exception $e){
+                $food = new Food();
+            }
+            return $food;
+
+        }
+    }
+
 
 }

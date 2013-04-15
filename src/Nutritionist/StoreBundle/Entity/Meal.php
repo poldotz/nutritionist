@@ -4,16 +4,14 @@ namespace Nutritionist\StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\Common\Collections\ArrayCollection;
-
 
 /**
- * Category
+ * Meal
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Nutritionist\StoreBundle\Entity\CategoryRepository")
+ * @ORM\Entity(repositoryClass="Nutritionist\StoreBundle\Entity\MealRepository")
  */
-class Category
+class Meal
 {
     /**
      * @var integer
@@ -25,9 +23,9 @@ class Category
     private $id;
 
     /**
-     * @var string
+     * @var String
      * @Gedmo\Translatable
-     * @ORM\Column(name="name", unique=true, type="string", length=250)
+     * @ORM\Column(name="name",type="string",unique=true)
      */
     private $name;
 
@@ -45,11 +43,6 @@ class Category
      */
     private $locale;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Food", mappedBy="category")
-     */
-    protected $foods;
-
 
     /**
      * Get id
@@ -65,7 +58,7 @@ class Category
      * Set name
      *
      * @param string $name
-     * @return Category
+     * @return Meal
      */
     public function setName($name)
     {
@@ -77,54 +70,9 @@ class Category
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
-    {
-        return $this->name;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->foods = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Add foods
-     *
-     * @param \Nutritionist\StoreBundle\Entity\Food $foods
-     * @return Category
-     */
-    public function addFood(\Nutritionist\StoreBundle\Entity\Food $foods)
-    {
-        $this->foods[] = $foods;
-    
-        return $this;
-    }
-
-    /**
-     * Remove foods
-     *
-     * @param \Nutritionist\StoreBundle\Entity\Food $foods
-     */
-    public function removeFood(\Nutritionist\StoreBundle\Entity\Food $foods)
-    {
-        $this->foods->removeElement($foods);
-    }
-
-    /**
-     * Get foods
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getFoods()
-    {
-        return $this->foods;
-    }
-
-    public function __toString()
     {
         return $this->name;
     }
@@ -133,7 +81,7 @@ class Category
      * Set slug
      *
      * @param string $slug
-     * @return Category
+     * @return Meal
      */
     public function setSlug($slug)
     {
