@@ -1,3 +1,8 @@
+NutritionistStoreBundle_admin_nutritionist_store_bundle_Category:
+    resource: "@NutritionistStoreBundle/Controller/Category/"
+    type:     admingenerator
+    prefix:   /admin/nutritionist_store_bundle/Category
+
 nutritionist_user:
     resource: "@NutritionistUserBundle/Controller/"
     type:     annotation
@@ -12,4 +17,8 @@ nutritionist_store:
     resource: "@NutritionistStoreBundle/Controller/"
     type:     annotation
     prefix:   /
+
+dashboard_welcome:
+    pattern:  /dashboard
+    defaults: { _controller: NutritionistStoreBundle/Category/New}
 
