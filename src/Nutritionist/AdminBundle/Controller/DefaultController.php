@@ -14,12 +14,6 @@ class DefaultController extends Controller
      */
     public function indexAction($name)
     {
-
-        $meal = new Meal();
-        $meal->setName('Breakfast');
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($meal);
-        $em->flush();
         return array('name' => $name);
     }
 }

@@ -1,15 +1,19 @@
 generator: admingenerator.generator.doctrine
 params:
-    model: Nutritionist\StoreBundle\Entity\Category
+    model: Nutritionist\StoreBundle\Entity\Food
     namespace_prefix: Nutritionist
     bundle_name: StoreBundle
-    fields: ~
+    fields:
+      category:
+        label:   category name
+        sort_on: category.name
+        getter:  category.name
 
 builders:
     list:
         params:
-            title: List for StoreBundle
-            display: ~
+            title: List for Food
+            display: [name,category]
             actions:
                 new: ~
             object_actions:
@@ -17,24 +21,24 @@ builders:
                 delete: ~
     filters:
         params:
-            display: ~
+            display: [name,category]
     new:
         params:
-            title: New object for StoreBundle
+            title: New object for Food
             display: ~
             actions:
                 save: ~
                 list: ~
     edit:
         params:
-            title: "You're editing the object \"%object%\"|{ %object%: YourModel.title }|"
+            title: "You're editing the object \"%object%\"|{ %object%: Food.name }|"
             display: ~
             actions:
                 save: ~
                 list: ~
     show:
         params:
-            title: "You're viewing the object \"%object%\"|{ %object%: YourModel.title }|"
+            title: "You're viewing the object \"%object%\"|{ %object%: Food.name }|"
             display: ~
             actions:
                 list: ~

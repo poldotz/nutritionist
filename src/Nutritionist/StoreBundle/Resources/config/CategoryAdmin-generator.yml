@@ -1,0 +1,42 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Nutritionist\StoreBundle\Entity\Category
+    namespace_prefix: Nutritionist
+    bundle_name: StoreBundle
+    fields: ~
+
+builders:
+    list:
+        params:
+            title: List for Category
+            display: [ id, name]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    filters:
+        params:
+            display: [  name]
+    new:
+        params:
+            title: New object for Category
+            display: ~
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "You're editing the object \"%object%\"|{ %object%: Category.Name }|"
+            display: [ id, name]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: Category.Name }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    delete: ~

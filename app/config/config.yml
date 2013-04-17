@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -29,7 +29,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ ]
+    bundles:        []
     #java: /usr/bin/java
     filters:
         less:
@@ -124,6 +124,7 @@ admingenerator_generator:
     use_propel:           false
     use_doctrine_orm:     true
     use_doctrine_odm:     false
+    base_admin_template: AdmingeneratorGeneratorBundle::base_admin_assetic_less.html.twig
     twig:
         use_form_resources: true
         use_localized_date: false
@@ -138,3 +139,8 @@ admingenerator_generator:
 knp_menu:
     twig:
         template: AdmingeneratorGeneratorBundle:KnpMenu:knp_menu_trans.html.twig
+jms_security_extra:
+    expressions: true
+
+
+

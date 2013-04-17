@@ -1,7 +1,12 @@
-NutritionistStoreBundle_admin_nutritionist_store_bundle_Category:
-    resource: "@NutritionistStoreBundle/Controller/Category/"
+NutritionistStoreBundle_admin_nutritionist_store_bundle_FoodAdmin:
+    resource: "@NutritionistStoreBundle/Controller/FoodAdmin/"
     type:     admingenerator
-    prefix:   /admin/nutritionist_store_bundle/Category
+    prefix:   /admin/nutritionist_store_bundle/FoodAdmin
+
+NutritionistStoreBundle_admin_nutritionist_store_bundle_CategoryAdmin:
+    resource: "@NutritionistStoreBundle/Controller/CategoryAdmin/"
+    type:     admingenerator
+    prefix:   /admin/nutritionist_store_bundle/CategoryAdmin
 
 nutritionist_user:
     resource: "@NutritionistUserBundle/Controller/"
