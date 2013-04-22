@@ -1,0 +1,41 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Nutritionist\StoreBundle\Entity\Nutrient
+    namespace_prefix: Nutritionist
+    bundle_name: StoreBundle
+    fields: ~
+
+builders:
+    list:
+        params:
+            title: List for Nutrient
+            display: [name, note]
+            object_actions:
+            actions:
+                new: ~
+
+    filters:
+        params:
+            display: [name, note]
+    new:
+        params:
+            title: New object for Nutrient
+            display: ~
+            actions:
+                save: ~
+                list: ~
+#    edit:
+#        params:
+#            title: "You're editing the object \"%object%\"|{ %object%: Nutrient.name }|"
+#            display: ~
+#            actions:
+#                save: ~
+#                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: Nutrient.name }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+#    delete: ~
