@@ -1,1 +1,23 @@
 {% extends_admingenerated "NutritionistStoreBundle:CategoryAdminList:index.html.twig" %}
+{% block list_filters %}
+        <div class="row-fluid">
+            <form action="{{ path("Nutritionist_StoreBundle_CategoryAdmin_filters") }}" method="post" {{ form_enctype(form) }}>
+                <legend>{% trans from "Admingenerator" %}list.filters{% endtrans %}</legend>
+                <fieldset class="form_block form_fieldset_NONE">
+                    {{ form_errors(form) }}
+                    <div class="control-group">
+                        {{ form_label(form['name'], 'Name'|trans({}, 'Admin')) }}
+                        <div class="controls">
+                            {{ form_widget(form['name']) }}
+                        </div>
+                        {{ form_errors(form['name']) }}
+                    </div>
+                    {{ form_rest(form) }}
+                </fieldset>
+                <div class="form-actions">
+                    <button type="submit" class="btn btm-small btn-primary"><i class="icon-search icon-white"></i> {% trans from "Admingenerator" %}list.button.filter{% endtrans %}</button>
+                    <button type="submit" class="btn btm-small" name="reset" value="true"><i class="icon-refresh"></i> {% trans from "Admingenerator" %}list.button.reset{% endtrans %}</button>
+                </div>
+            </form>
+        </div>
+{% endblock %}

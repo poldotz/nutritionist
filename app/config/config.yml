@@ -124,7 +124,9 @@ admingenerator_generator:
     use_propel:           false
     use_doctrine_orm:     true
     use_doctrine_odm:     false
+    dashboard_welcome_path:     MyDashboard_path
     base_admin_template: AdmingeneratorGeneratorBundle::base_admin_assetic_less.html.twig
+    knp_menu_class: Nutritionist\AdminBundle\Menu\DefaultMenuBuilder
     twig:
         use_form_resources: true
         use_localized_date: false
@@ -141,6 +143,16 @@ knp_menu:
         template: AdmingeneratorGeneratorBundle:KnpMenu:knp_menu_trans.html.twig
 jms_security_extra:
     expressions: true
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Nutritionist\UserBundle\Entity\User
+
+admingenerator_user:
+     login_template: AdmingeneratorGeneratorBundle::base_login.html.twig
+
+
 
 
 

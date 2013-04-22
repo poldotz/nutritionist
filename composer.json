@@ -27,7 +27,9 @@
         "braincrafted/bootstrap-bundle": "1.4.2",
         "twitter/bootstrap": "v2.3.1",
         "knplabs/knp-menu-bundle": "dev-master",
-        "cedriclombardot/admingenerator-generator-bundle": "dev-master"
+        "cedriclombardot/admingenerator-generator-bundle": "dev-master",
+        "friendsofsymfony/user-bundle": "dev-master",
+        "cedriclombardot/admingenerator-user-bundle": "dev-master"
         
     },
     "scripts": {

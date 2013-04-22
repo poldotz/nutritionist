@@ -2,6 +2,7 @@ _welcome:
     pattern:  /
     defaults: { _controller: NutritionistStoreBundle:Default:index }
 
+
 _demo_secured:
     resource: "@AcmeDemoBundle/Controller/SecuredController.php"
     type:     annotation

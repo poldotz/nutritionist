@@ -9,19 +9,21 @@ builders:
     list:
         params:
             title: List for Category
-            display: [ id, name]
+            display: [ name]
+            object_actions:
             actions:
                 new: ~
-            object_actions:
-                edit: ~
-                delete: ~
     filters:
         params:
+            fields:
+                name:
+                    form_type: search
             display: [  name]
+
     new:
         params:
             title: New object for Category
-            display: ~
+            display: [ name]
             actions:
                 save: ~
                 list: ~

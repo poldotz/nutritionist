@@ -14,11 +14,9 @@ builders:
         params:
             title: List for Food
             display: [name,category]
+            object_actions:
             actions:
                 new: ~
-            object_actions:
-                edit: ~
-                delete: ~
     filters:
         params:
             display: [name,category]

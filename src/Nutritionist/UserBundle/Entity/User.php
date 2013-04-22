@@ -4,6 +4,7 @@ namespace Nutritionist\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * User
@@ -11,39 +12,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Nutritionist\UserBundle\Entity\UserRepository")
  */
-class User implements UserInterface, \Serializable
+class User extends BaseUser implements UserInterface, \Serializable
 {
     /**
-     * @ORM\Column(type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string", length=25, unique=true)
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=32)
-     */
-    private $salt;
-
-    /**
-     * @ORM\Column(type="string", length=40)
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string", length=60, unique=true)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
+    protected $id;
 
     /**
      * @ORM\OneToOne(targetEntity="Profile", inversedBy="user")
@@ -53,6 +29,8 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->isActive = true;
         $this->salt = md5(uniqid(null, true));
     }

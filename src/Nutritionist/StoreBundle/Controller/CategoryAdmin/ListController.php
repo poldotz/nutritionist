@@ -6,4 +6,18 @@ use Admingenerated\NutritionistStoreBundle\BaseCategoryAdminController\ListContr
 
 class ListController extends BaseListController
 {
+
+    /*protected function getFilterForm()
+    {
+        $filters = $this->getFilters();
+        $filters_like = array();
+        foreach($filters as $key =>$value){
+            if(is_string($value)){
+                $value = "%".$value."%";
+            }
+            $filters_like[$key]=$value;
+        }
+        return $this->createForm($this->getFiltersType(), $filters_like);
+    }*/
+
 }
